@@ -7,12 +7,14 @@
     "test": "node --experimental-wasm-bigint ./tests/index.js",
     "asbuild:untouched": "asc assembly/index.ts -b build/untouched.wasm -t build/untouched.wat -a build/untouched.js --validate --sourceMap --debug",
     "asbuild:optimized": "asc assembly/index.ts -b build/optimized.wasm -t build/optimized.wat -a build/optimized.js --validate --sourceMap -O3z --converge",
-    "asbuild": "npm run asbuild:untouched && npm run asbuild:optimized"
+    "asbuild": "npm run asbuild:untouched && npm run asbuild:optimized",
+    "build": "npm i && npm run asbuild:optimized && cp build/optimized.wasm ./demo/pkg/ && browserify ./demo/pkg/main.js -o ./demo/pkg/index.js"
   },
   "author": "Ian McCall <ian@ianmccall.codes>",
   "license": "MIT",
   "devDependencies": {
-    "assemblyscript": "^0.9.2"
+    "assemblyscript": "^0.9.2",
+    "browserify": "^16.5.1"
   },
   "dependencies": {
     "@assemblyscript/loader": "^0.9.2"
