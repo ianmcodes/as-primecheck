@@ -2,7 +2,7 @@ const loader = require("@assemblyscript/loader");
 async function init() {
   let t0 = performance.now();
   let wasm = await loader.instantiate(fetch("./pkg/optimized.wasm"), {});
-  window.module = wasm;
+  window.module = wasm.exports;
   let t1 = performance.now();
   document.getElementById('info').innerHTML = `WebAssembly module initalized in ${t1 - t0}ms`;
   console.log(`WebAssembly module initalized in ${t1 - t0}ms`);

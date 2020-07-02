@@ -1,7 +1,5 @@
 const assert = require("assert");
 const myModule = require("..");
-// Check add
-assert.strictEqual(myModule.add(1, 2), 3);
 // Check modpow
 assert.strictEqual(myModule.modpow(64n, 42n, 1n), 0n);
 assert.strictEqual(myModule.modpow(100n, 42n, 23n), 9n);
