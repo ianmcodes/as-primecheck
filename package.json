@@ -17,6 +17,6 @@
     "browserify": "^16.5.1"
   },
   "dependencies": {
-    "@assemblyscript/loader": "^0.13.1"
+    "@assemblyscript/loader": "^0.13.2"
   }
 }
