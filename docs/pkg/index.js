@@ -1,10 +1,11 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 const loader = require("@assemblyscript/loader");
+
 async function init() {
-  let t0 = performance.now();
-  let wasm = await loader.instantiate(fetch("./pkg/optimized.wasm"), {});
+  const t0 = performance.now();
+  const wasm = await loader.instantiate(fetch("./pkg/optimized.wasm"), {});
   window.module = wasm.exports;
-  let t1 = performance.now();
+  const t1 = performance.now();
   document.getElementById('info').innerHTML = `WebAssembly module initalized in ${t1 - t0}ms`;
   console.log(`WebAssembly module initalized in ${t1 - t0}ms`);
 
@@ -14,11 +15,11 @@ async function init() {
 }
 
 function initPrimeCheck() {
-  let numInput = document.getElementById("primeCheckNum");
-  let btn = document.getElementById("primeCheckSubmit");
-  let dsp = document.getElementById("primeCheckResult");
-  btn.addEventListener('click',handleInput);
-  function handleInput(evt) {
+  const numInput = document.getElementById("primeCheckNum");
+  const btn = document.getElementById("primeCheckSubmit");
+  const dsp = document.getElementById("primeCheckResult");
+
+  btn.addEventListener('click', () => {
     let num;
     try {
       num = BigInt(numInput.value);
@@ -26,27 +27,25 @@ function initPrimeCheck() {
       dsp.innerHTML = "Invalid input";
       return;
     }
-    let t0 = performance.now();
-    let result = window.module.primeCheck(num,10);
-    let t1 = performance.now();
+    const t0 = performance.now();
+    const result = window.module.primeCheck(num,10);
+    const t1 = performance.now();
     if (result) {
       dsp.innerHTML = `Probably Prime (took ${t1 - t0}ms to complete)`;
     } else {
       dsp.innerHTML = `Not Prime (took ${t1 - t0}ms to complete)`;
     }
-  }
+  });
 }
 
 function initModPow() {
-  let baseInput = document.getElementById("modPowBase");
-  let expInput = document.getElementById("modPowExp");
-  let modInput = document.getElementById("modPowMod");
-  let btn = document.getElementById("modPowSubmit");
-  let dsp = document.getElementById("modPowResult");
+  const baseInput = document.getElementById("modPowBase");
+  const expInput = document.getElementById("modPowExp");
+  const modInput = document.getElementById("modPowMod");
+  const btn = document.getElementById("modPowSubmit");
+  const dsp = document.getElementById("modPowResult");
 
-  btn.addEventListener('click',handleInput);
-
-  function handleInput(evt) {
+  btn.addEventListener('click', () => {
     let base, exponent, modulus;
     try {
       base = BigInt(baseInput.value);
@@ -55,20 +54,20 @@ function initModPow() {
     } catch (e) {
       dsp.innerHTML = "Invalid input";
     }
-    let t0 = performance.now();
-    let result = window.module.modpow(base, exponent, modulus);
-    let t1 = performance.now();
+    const t0 = performance.now();
+    const result = window.module.modpow(base, exponent, modulus);
+    const t1 = performance.now();
     dsp.innerHTML = `${result} (took ${t1 - t0}ms to complete)`;
-  }
+  });
 }
 
 function initRngGenRange() {
-  let minInput = document.getElementById("rngGenRangeMin");
-  let maxInput = document.getElementById("rngGenRangeMax");
-  let btn = document.getElementById("rngGenRangeSubmit");
-  let dsp = document.getElementById("rngGenRangeResult");
-  btn.addEventListener('click',handleInput);
-  function handleInput(evt) {
+  const minInput = document.getElementById("rngGenRangeMin");
+  const maxInput = document.getElementById("rngGenRangeMax");
+  const btn = document.getElementById("rngGenRangeSubmit");
+  const dsp = document.getElementById("rngGenRangeResult");
+
+  btn.addEventListener('click', () => {
     let min, max;
     try {
       min = BigInt(minInput.value);
@@ -76,12 +75,13 @@ function initRngGenRange() {
     } catch (e) {
       dsp.innerHTML = "Invalid input";
     }
-    let t0 = performance.now();
-    let result = window.module.rng_gen_range(min, max);
-    let t1 = performance.now();
+    const t0 = performance.now();
+    const result = window.module.rng_gen_range(min, max);
+    const t1 = performance.now();
     dsp.innerHTML = `${result} (took ${t1 - t0}ms to complete)`;
-  }
+  });
 }
+
 init();
 },{"@assemblyscript/loader":2}],2:[function(require,module,exports){
 "use strict";
