@@ -13,7 +13,7 @@
   "author": "Ian McCall <ian@ianmccall.codes>",
   "license": "MIT",
   "devDependencies": {
-    "assemblyscript": "^0.13.1",
+    "assemblyscript": "^0.13.2",
     "browserify": "^16.5.1"
   },
   "dependencies": {
