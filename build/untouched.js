@@ -1,5 +1,6 @@
 import { abort } from 'env';
 import { now } from 'Date';
+import { seed } from 'env';
 import { setTempRet0 } from 'env';
 import { getTempRet0 } from 'env';
 
@@ -9,12 +10,20 @@ import { getTempRet0 } from 'env';
   var f32ScratchView = new Float32Array(scratchBuffer);
   var f64ScratchView = new Float64Array(scratchBuffer);
   
+  function wasm2js_scratch_load_i32(index) {
+    return i32ScratchView[index];
+  }
+      
   function wasm2js_scratch_store_i32(index, value) {
     i32ScratchView[index] = value;
   }
       
   function wasm2js_scratch_load_f64() {
     return f64ScratchView[0];
+  }
+      
+  function wasm2js_scratch_store_f64(value) {
+    f64ScratchView[0] = value;
   }
       
   function legalimport$wasm2js_scratch_load_i64() {
@@ -50,6 +59,7 @@ function asmFunc(global, env, buffer) {
  var infinity = global.Infinity;
  var $lib_builtins_abort = env.abort;
  var $lib_bindings_Date_now = env.now;
+ var $lib_builtins_seed = env.seed;
  var setTempRet0 = env.setTempRet0;
  var getTempRet0 = env.getTempRet0;
  var $lib_rt_tlsf_ROOT = 0;
@@ -60,8 +70,8 @@ function asmFunc(global, env, buffer) {
  var $lib_math_random_state1_64 = 0;
  var $lib_math_random_state0_32 = 0;
  var $lib_math_random_state1_32 = 0;
- var $lib_rt___rtti_base = 288;
- var $lib_heap___heap_base = 316;
+ var $lib_rt___rtti_base = 224;
+ var $lib_heap___heap_base = 252;
  var $lib_math_random_state0_64$hi = 0;
  var $lib_math_random_state1_64$hi = 0;
  var i64toi32_i32$HIGH_BITS = 0;
@@ -71,7 +81,7 @@ function asmFunc(global, env, buffer) {
   var $4 = 0, $9 = 0, $3 = 0, $7 = 0, $5 = 0, $8 = 0, $6 = 0, $2 = 0, $24 = 0, $47 = 0;
   $2 = HEAP32[$1 >> 2] | 0;
   if (!($2 & 1 | 0)) {
-   $lib_builtins_abort(0 | 0, 32 | 0, 277 | 0, 13 | 0);
+   $lib_builtins_abort(0 | 0, 32 | 0, 277 | 0, 14 | 0);
    abort();
   }
   $3 = $2 & (3 ^ -1 | 0) | 0;
@@ -81,7 +91,7 @@ function asmFunc(global, env, buffer) {
    $24 = 0
   }
   if (!$24) {
-   $lib_builtins_abort(0 | 0, 32 | 0, 279 | 0, 13 | 0);
+   $lib_builtins_abort(0 | 0, 32 | 0, 279 | 0, 14 | 0);
    abort();
   }
   if ($3 >>> 0 < 256 >>> 0) {
@@ -98,7 +108,7 @@ function asmFunc(global, env, buffer) {
    $47 = 0
   }
   if (!$47) {
-   $lib_builtins_abort(0 | 0, 32 | 0, 292 | 0, 13 | 0);
+   $lib_builtins_abort(0 | 0, 32 | 0, 292 | 0, 14 | 0);
    abort();
   }
   $6 = HEAP32[($1 + 16 | 0) >> 2] | 0;
@@ -142,12 +152,12 @@ function asmFunc(global, env, buffer) {
   $1 = $1 | 0;
   var $3 = 0, $6 = 0, $9 = 0, $2 = 0, $4 = 0, $7 = 0, $8 = 0, $10 = 0, $5 = 0, $11 = 0, $107 = 0, $140 = 0;
   if (!$1) {
-   $lib_builtins_abort(0 | 0, 32 | 0, 205 | 0, 13 | 0);
+   $lib_builtins_abort(0 | 0, 32 | 0, 205 | 0, 14 | 0);
    abort();
   }
   $2 = HEAP32[$1 >> 2] | 0;
   if (!($2 & 1 | 0)) {
-   $lib_builtins_abort(0 | 0, 32 | 0, 207 | 0, 13 | 0);
+   $lib_builtins_abort(0 | 0, 32 | 0, 207 | 0, 14 | 0);
    abort();
   }
   $3 = $1;
@@ -169,7 +179,7 @@ function asmFunc(global, env, buffer) {
    $6 = HEAP32[($6 - 4 | 0) >> 2] | 0;
    $3 = HEAP32[$6 >> 2] | 0;
    if (!($3 & 1 | 0)) {
-    $lib_builtins_abort(0 | 0, 32 | 0, 228 | 0, 15 | 0);
+    $lib_builtins_abort(0 | 0, 32 | 0, 228 | 0, 16 | 0);
     abort();
    }
    $7 = (($3 & (3 ^ -1 | 0) | 0) + 16 | 0) + ($2 & (3 ^ -1 | 0) | 0) | 0;
@@ -188,11 +198,11 @@ function asmFunc(global, env, buffer) {
    $107 = 0
   }
   if (!$107) {
-   $lib_builtins_abort(0 | 0, 32 | 0, 243 | 0, 13 | 0);
+   $lib_builtins_abort(0 | 0, 32 | 0, 243 | 0, 14 | 0);
    abort();
   }
   if (!((($1 + 16 | 0) + $8 | 0 | 0) == ($4 | 0))) {
-   $lib_builtins_abort(0 | 0, 32 | 0, 244 | 0, 13 | 0);
+   $lib_builtins_abort(0 | 0, 32 | 0, 244 | 0, 14 | 0);
    abort();
   }
   HEAP32[($4 - 4 | 0) >> 2] = $1;
@@ -210,7 +220,7 @@ function asmFunc(global, env, buffer) {
    $140 = 0
   }
   if (!$140) {
-   $lib_builtins_abort(0 | 0, 32 | 0, 260 | 0, 13 | 0);
+   $lib_builtins_abort(0 | 0, 32 | 0, 260 | 0, 14 | 0);
    abort();
   }
   $lib_rt_tlsf_GETHEAD_inlined_1 : {
@@ -257,14 +267,14 @@ function asmFunc(global, env, buffer) {
    $21 = 0
   }
   if (!$21) {
-   $lib_builtins_abort(0 | 0, 32 | 0, 386 | 0, 4 | 0);
+   $lib_builtins_abort(0 | 0, 32 | 0, 386 | 0, 5 | 0);
    abort();
   }
   $4 = HEAP32[($0 + 1568 | 0) >> 2] | 0;
   $5 = 0;
   if ($4) {
    if (!($1 >>> 0 >= ($4 + 16 | 0) >>> 0)) {
-    $lib_builtins_abort(0 | 0, 32 | 0, 396 | 0, 15 | 0);
+    $lib_builtins_abort(0 | 0, 32 | 0, 396 | 0, 16 | 0);
     abort();
    }
    if (($1 - 16 | 0 | 0) == ($4 | 0)) {
@@ -273,12 +283,12 @@ function asmFunc(global, env, buffer) {
    }
   } else {
    if (!($1 >>> 0 >= ($0 + 1572 | 0) >>> 0)) {
-    $lib_builtins_abort(0 | 0, 32 | 0, 408 | 0, 4 | 0);
+    $lib_builtins_abort(0 | 0, 32 | 0, 408 | 0, 5 | 0);
     abort();
    }
   }
   $6 = $2 - $1 | 0;
-  if ($6 >>> 0 < 48 >>> 0) {
+  if ($6 >>> 0 < ((16 + 16 | 0) + 16 | 0) >>> 0) {
    return 0 | 0
   }
   HEAP32[$1 >> 2] = $6 - (16 << 1 | 0) | 0 | 1 | 0 | ($5 & 2 | 0) | 0;
@@ -292,18 +302,18 @@ function asmFunc(global, env, buffer) {
  }
  
  function $lib_rt_tlsf_maybeInitialize() {
-  var $0 = 0, $5 = 0, $8 = 0, $1 = 0, $4 = 0, $6 = 0, $2 = 0, $3 = 0, $33 = 0;
+  var $0 = 0, $5 = 0, $8 = 0, $1 = 0, $4 = 0, $6 = 0, $2 = 0, $3 = 0, $34 = 0;
   $0 = $lib_rt_tlsf_ROOT;
   if (!$0) {
-   $1 = ($lib_heap___heap_base + 15 | 0) & -16 | 0;
+   $1 = ($lib_heap___heap_base + 15 | 0) & (15 ^ -1 | 0) | 0;
    $2 = __wasm_memory_size();
    $3 = ((($1 + 1572 | 0) + 65535 | 0) & (65535 ^ -1 | 0) | 0) >>> 16 | 0;
    if (($3 | 0) > ($2 | 0)) {
-    $33 = (__wasm_memory_grow($3 - $2 | 0 | 0) | 0) < (0 | 0)
+    $34 = (__wasm_memory_grow($3 - $2 | 0 | 0) | 0) < (0 | 0)
    } else {
-    $33 = 0
+    $34 = 0
    }
-   if ($33) {
+   if ($34) {
     abort()
    }
    $0 = $1;
@@ -341,7 +351,8 @@ function asmFunc(global, env, buffer) {
     }
     break for_loop_0;
    };
-   $lib_rt_tlsf_addMemory($0 | 0, (($1 + 1572 | 0) + 15 | 0) & (15 ^ -1 | 0) | 0 | 0, __wasm_memory_size() << 16 | 0 | 0) | 0;
+   $5 = (($1 + 1572 | 0) + 15 | 0) & (15 ^ -1 | 0) | 0;
+   $lib_rt_tlsf_addMemory($0 | 0, $5 | 0, __wasm_memory_size() << 16 | 0 | 0) | 0;
    $lib_rt_tlsf_ROOT = $0;
   }
   return $0 | 0;
@@ -351,7 +362,7 @@ function asmFunc(global, env, buffer) {
   $0 = $0 | 0;
   var $1 = 0, $2 = 0;
   if ($0 >>> 0 >= 1073741808 >>> 0) {
-   $lib_builtins_abort(80 | 0, 32 | 0, 457 | 0, 29 | 0);
+   $lib_builtins_abort(80 | 0, 32 | 0, 461 | 0, 30 | 0);
    abort();
   }
   $1 = ($0 + 15 | 0) & (15 ^ -1 | 0) | 0;
@@ -383,7 +394,7 @@ function asmFunc(global, env, buffer) {
    $42 = 0
   }
   if (!$42) {
-   $lib_builtins_abort(0 | 0, 32 | 0, 338 | 0, 13 | 0);
+   $lib_builtins_abort(0 | 0, 32 | 0, 338 | 0, 14 | 0);
    abort();
   }
   $lib_rt_tlsf_GETSL_inlined_2 : {
@@ -404,7 +415,7 @@ function asmFunc(global, env, buffer) {
     }
     $6 = HEAP32[(($8 + ($4 << 2 | 0) | 0) + 4 | 0) >> 2] | 0;
     if (!$6) {
-     $lib_builtins_abort(0 | 0, 32 | 0, 351 | 0, 17 | 0);
+     $lib_builtins_abort(0 | 0, 32 | 0, 351 | 0, 18 | 0);
      abort();
     }
     $lib_rt_tlsf_GETHEAD_inlined_2 : {
@@ -447,14 +458,14 @@ function asmFunc(global, env, buffer) {
   $0 = $0 | 0;
   $1 = $1 | 0;
   $2 = $2 | 0;
-  var $5 = 0, $3 = 0, $4 = 0, $47 = 0;
+  var $5 = 0, $3 = 0, $4 = 0, $48 = 0;
   $3 = HEAP32[$1 >> 2] | 0;
   if (!!($2 & 15 | 0)) {
-   $lib_builtins_abort(0 | 0, 32 | 0, 365 | 0, 13 | 0);
+   $lib_builtins_abort(0 | 0, 32 | 0, 365 | 0, 14 | 0);
    abort();
   }
   $4 = ($3 & (3 ^ -1 | 0) | 0) - $2 | 0;
-  if ($4 >>> 0 >= 32 >>> 0) {
+  if ($4 >>> 0 >= (16 + 16 | 0) >>> 0) {
    HEAP32[$1 >> 2] = $2 | ($3 & 2 | 0) | 0;
    $5 = ($1 + 16 | 0) + $2 | 0;
    HEAP32[$5 >> 2] = $4 - 16 | 0 | 1 | 0;
@@ -462,9 +473,9 @@ function asmFunc(global, env, buffer) {
   } else {
    HEAP32[$1 >> 2] = $3 & (1 ^ -1 | 0) | 0;
    $5 = $1;
-   $47 = ($5 + 16 | 0) + ((HEAP32[$5 >> 2] | 0) & (3 ^ -1 | 0) | 0) | 0;
+   $48 = ($5 + 16 | 0) + ((HEAP32[$5 >> 2] | 0) & (3 ^ -1 | 0) | 0) | 0;
    $5 = $1;
-   HEAP32[$47 >> 2] = (HEAP32[(($5 + 16 | 0) + ((HEAP32[$5 >> 2] | 0) & (3 ^ -1 | 0) | 0) | 0) >> 2] | 0) & (2 ^ -1 | 0) | 0;
+   HEAP32[$48 >> 2] = (HEAP32[(($5 + 16 | 0) + ((HEAP32[$5 >> 2] | 0) & (3 ^ -1 | 0) | 0) | 0) >> 2] | 0) & (2 ^ -1 | 0) | 0;
   }
  }
  
@@ -474,7 +485,7 @@ function asmFunc(global, env, buffer) {
   $2 = $2 | 0;
   var $4 = 0, $3 = 0;
   if (!!$lib_rt_tlsf_collectLock) {
-   $lib_builtins_abort(0 | 0, 32 | 0, 490 | 0, 13 | 0);
+   $lib_builtins_abort(0 | 0, 32 | 0, 500 | 0, 14 | 0);
    abort();
   }
   $3 = $lib_rt_tlsf_prepareSize($1 | 0) | 0;
@@ -489,7 +500,7 @@ function asmFunc(global, env, buffer) {
      $lib_rt_tlsf_growMemory($0 | 0, $3 | 0);
      $4 = $lib_rt_tlsf_searchBlock($0 | 0, $3 | 0) | 0;
      if (!$4) {
-      $lib_builtins_abort(0 | 0, 32 | 0, 502 | 0, 19 | 0);
+      $lib_builtins_abort(0 | 0, 32 | 0, 512 | 0, 20 | 0);
       abort();
      }
     }
@@ -497,13 +508,13 @@ function asmFunc(global, env, buffer) {
     $lib_rt_tlsf_growMemory($0 | 0, $3 | 0);
     $4 = $lib_rt_tlsf_searchBlock($0 | 0, $3 | 0) | 0;
     if (!$4) {
-     $lib_builtins_abort(0 | 0, 32 | 0, 507 | 0, 17 | 0);
+     $lib_builtins_abort(0 | 0, 32 | 0, 517 | 0, 18 | 0);
      abort();
     }
    }
   }
-  if (!(((HEAP32[$4 >> 2] | 0) & -4 | 0) >>> 0 >= $3 >>> 0)) {
-   $lib_builtins_abort(0 | 0, 32 | 0, 510 | 0, 13 | 0);
+  if (!(((HEAP32[$4 >> 2] | 0) & (3 ^ -1 | 0) | 0) >>> 0 >= $3 >>> 0)) {
+   $lib_builtins_abort(0 | 0, 32 | 0, 520 | 0, 14 | 0);
    abort();
   }
   HEAP32[($4 + 4 | 0) >> 2] = 0;
@@ -524,13 +535,13 @@ function asmFunc(global, env, buffer) {
   $0 = $0 | 0;
   var $1 = 0;
   $1 = HEAP32[($0 + 4 | 0) >> 2] | 0;
-  if (!(($1 & -268435456 | 0 | 0) == (($1 + 1 | 0) & -268435456 | 0 | 0))) {
-   $lib_builtins_abort(0 | 0, 144 | 0, 109 | 0, 2 | 0);
+  if (!(($1 & (268435455 ^ -1 | 0) | 0 | 0) == (($1 + 1 | 0) & (268435455 ^ -1 | 0) | 0 | 0))) {
+   $lib_builtins_abort(0 | 0, 144 | 0, 109 | 0, 3 | 0);
    abort();
   }
   HEAP32[($0 + 4 | 0) >> 2] = $1 + 1 | 0;
   if (!!((HEAP32[$0 >> 2] | 0) & 1 | 0)) {
-   $lib_builtins_abort(0 | 0, 144 | 0, 112 | 0, 13 | 0);
+   $lib_builtins_abort(0 | 0, 144 | 0, 112 | 0, 14 | 0);
    abort();
   }
  }
@@ -789,16 +800,17 @@ function asmFunc(global, env, buffer) {
    $23 = 0
   }
   if (!$23) {
-   $lib_builtins_abort(0 | 0, 192 | 0, 1406 | 0, 4 | 0);
+   $lib_builtins_abort(0 | 0, 192 | 0, 1398 | 0, 5 | 0);
    abort();
   }
  }
  
  function $lib_math_NativeMath_random() {
-  var i64toi32_i32$0 = 0, i64toi32_i32$2 = 0, i64toi32_i32$1 = 0, i64toi32_i32$4 = 0, i64toi32_i32$3 = 0, $0 = 0, $0$hi = 0, $1$hi = 0, $1 = 0, $18 = 0, $20 = 0, $21 = 0, $22 = 0, $8 = 0, $8$hi = 0, $10$hi = 0, $12 = 0, $12$hi = 0, $14$hi = 0, $19 = 0, $19$hi = 0, $21$hi = 0;
+  var i64toi32_i32$0 = 0, i64toi32_i32$2 = 0, i64toi32_i32$1 = 0, i64toi32_i32$4 = 0, i64toi32_i32$3 = 0, $0 = 0, $0$hi = 0, $1$hi = 0, $1 = 0, $18 = 0, $19 = 0, $20 = 0, $22 = 0, $10 = 0, $10$hi = 0, $12$hi = 0, $14 = 0, $14$hi = 0, $16$hi = 0, $21 = 0, $21$hi = 0, $23$hi = 0;
   if (!$lib_math_random_seeded) {
-   $lib_builtins_abort(240 | 0, 192 | 0, 1413 | 0, 24 | 0);
-   abort();
+   wasm2js_scratch_store_f64(+(+$lib_builtins_seed()));
+   i64toi32_i32$0 = wasm2js_scratch_load_i32(1 | 0) | 0;
+   $lib_math_NativeMath_seedRandom(wasm2js_scratch_load_i32(0 | 0) | 0 | 0, i64toi32_i32$0 | 0);
   }
   i64toi32_i32$0 = $lib_math_random_state0_64$hi;
   $0 = $lib_math_random_state0_64;
@@ -809,8 +821,8 @@ function asmFunc(global, env, buffer) {
   $lib_math_random_state0_64 = $1;
   $lib_math_random_state0_64$hi = i64toi32_i32$0;
   i64toi32_i32$0 = $0$hi;
-  $8 = $0;
-  $8$hi = i64toi32_i32$0;
+  $10 = $0;
+  $10$hi = i64toi32_i32$0;
   i64toi32_i32$2 = $0;
   i64toi32_i32$1 = 0;
   i64toi32_i32$3 = 23;
@@ -822,32 +834,32 @@ function asmFunc(global, env, buffer) {
    i64toi32_i32$1 = ((1 << i64toi32_i32$4 | 0) - 1 | 0) & (i64toi32_i32$2 >>> (32 - i64toi32_i32$4 | 0) | 0) | 0 | (i64toi32_i32$0 << i64toi32_i32$4 | 0) | 0;
    $18 = i64toi32_i32$2 << i64toi32_i32$4 | 0;
   }
-  $10$hi = i64toi32_i32$1;
-  i64toi32_i32$1 = $8$hi;
-  i64toi32_i32$0 = $8;
-  i64toi32_i32$2 = $10$hi;
+  $12$hi = i64toi32_i32$1;
+  i64toi32_i32$1 = $10$hi;
+  i64toi32_i32$0 = $10;
+  i64toi32_i32$2 = $12$hi;
   i64toi32_i32$3 = $18;
   i64toi32_i32$2 = i64toi32_i32$1 ^ i64toi32_i32$2 | 0;
   $0 = i64toi32_i32$0 ^ i64toi32_i32$3 | 0;
   $0$hi = i64toi32_i32$2;
-  $12 = $0;
-  $12$hi = i64toi32_i32$2;
+  $14 = $0;
+  $14$hi = i64toi32_i32$2;
   i64toi32_i32$1 = $0;
   i64toi32_i32$0 = 0;
   i64toi32_i32$3 = 17;
   i64toi32_i32$4 = i64toi32_i32$3 & 31 | 0;
   if (32 >>> 0 <= (i64toi32_i32$3 & 63 | 0) >>> 0) {
    i64toi32_i32$0 = 0;
-   $20 = i64toi32_i32$2 >>> i64toi32_i32$4 | 0;
+   $19 = i64toi32_i32$2 >>> i64toi32_i32$4 | 0;
   } else {
    i64toi32_i32$0 = i64toi32_i32$2 >>> i64toi32_i32$4 | 0;
-   $20 = (((1 << i64toi32_i32$4 | 0) - 1 | 0) & i64toi32_i32$2 | 0) << (32 - i64toi32_i32$4 | 0) | 0 | (i64toi32_i32$1 >>> i64toi32_i32$4 | 0) | 0;
+   $19 = (((1 << i64toi32_i32$4 | 0) - 1 | 0) & i64toi32_i32$2 | 0) << (32 - i64toi32_i32$4 | 0) | 0 | (i64toi32_i32$1 >>> i64toi32_i32$4 | 0) | 0;
   }
-  $14$hi = i64toi32_i32$0;
-  i64toi32_i32$0 = $12$hi;
-  i64toi32_i32$2 = $12;
-  i64toi32_i32$1 = $14$hi;
-  i64toi32_i32$3 = $20;
+  $16$hi = i64toi32_i32$0;
+  i64toi32_i32$0 = $14$hi;
+  i64toi32_i32$2 = $14;
+  i64toi32_i32$1 = $16$hi;
+  i64toi32_i32$3 = $19;
   i64toi32_i32$1 = i64toi32_i32$0 ^ i64toi32_i32$1 | 0;
   $0 = i64toi32_i32$2 ^ i64toi32_i32$3 | 0;
   $0$hi = i64toi32_i32$1;
@@ -859,8 +871,8 @@ function asmFunc(global, env, buffer) {
   i64toi32_i32$2 = i64toi32_i32$1 ^ i64toi32_i32$2 | 0;
   $0 = i64toi32_i32$0 ^ i64toi32_i32$3 | 0;
   $0$hi = i64toi32_i32$2;
-  $19 = $0;
-  $19$hi = i64toi32_i32$2;
+  $21 = $0;
+  $21$hi = i64toi32_i32$2;
   i64toi32_i32$2 = $1$hi;
   i64toi32_i32$1 = i64toi32_i32$3;
   i64toi32_i32$0 = 0;
@@ -868,16 +880,16 @@ function asmFunc(global, env, buffer) {
   i64toi32_i32$4 = i64toi32_i32$3 & 31 | 0;
   if (32 >>> 0 <= (i64toi32_i32$3 & 63 | 0) >>> 0) {
    i64toi32_i32$0 = 0;
-   $21 = i64toi32_i32$2 >>> i64toi32_i32$4 | 0;
+   $20 = i64toi32_i32$2 >>> i64toi32_i32$4 | 0;
   } else {
    i64toi32_i32$0 = i64toi32_i32$2 >>> i64toi32_i32$4 | 0;
-   $21 = (((1 << i64toi32_i32$4 | 0) - 1 | 0) & i64toi32_i32$2 | 0) << (32 - i64toi32_i32$4 | 0) | 0 | (i64toi32_i32$1 >>> i64toi32_i32$4 | 0) | 0;
+   $20 = (((1 << i64toi32_i32$4 | 0) - 1 | 0) & i64toi32_i32$2 | 0) << (32 - i64toi32_i32$4 | 0) | 0 | (i64toi32_i32$1 >>> i64toi32_i32$4 | 0) | 0;
   }
-  $21$hi = i64toi32_i32$0;
-  i64toi32_i32$0 = $19$hi;
-  i64toi32_i32$2 = $19;
-  i64toi32_i32$1 = $21$hi;
-  i64toi32_i32$3 = $21;
+  $23$hi = i64toi32_i32$0;
+  i64toi32_i32$0 = $21$hi;
+  i64toi32_i32$2 = $21;
+  i64toi32_i32$1 = $23$hi;
+  i64toi32_i32$3 = $20;
   i64toi32_i32$1 = i64toi32_i32$0 ^ i64toi32_i32$1 | 0;
   $0 = i64toi32_i32$2 ^ i64toi32_i32$3 | 0;
   $0$hi = i64toi32_i32$1;
@@ -1051,25 +1063,30 @@ function asmFunc(global, env, buffer) {
   $lib_rt_tlsf_insertBlock($0 | 0, $1 | 0);
  }
  
+ function $lib_rt_pure_finalize($0) {
+  $0 = $0 | 0;
+  $lib_rt_tlsf_freeBlock($lib_rt_tlsf_ROOT | 0, $0 | 0);
+ }
+ 
  function $lib_rt_pure_decrement($0) {
   $0 = $0 | 0;
   var $1 = 0, $2 = 0;
   $1 = HEAP32[($0 + 4 | 0) >> 2] | 0;
   $2 = $1 & 268435455 | 0;
   if (!!((HEAP32[$0 >> 2] | 0) & 1 | 0)) {
-   $lib_builtins_abort(0 | 0, 144 | 0, 122 | 0, 13 | 0);
+   $lib_builtins_abort(0 | 0, 144 | 0, 122 | 0, 14 | 0);
    abort();
   }
   if (($2 | 0) == (1 | 0)) {
    $lib_rt___visit_members($0 + 16 | 0 | 0, 1 | 0);
    if (!!($1 & -2147483648 | 0)) {
-    $lib_builtins_abort(0 | 0, 144 | 0, 126 | 0, 17 | 0);
+    $lib_builtins_abort(0 | 0, 144 | 0, 126 | 0, 18 | 0);
     abort();
    }
-   $lib_rt_tlsf_freeBlock($lib_rt_tlsf_ROOT | 0, $0 | 0);
+   $lib_rt_pure_finalize($0 | 0);
   } else {
    if (!($2 >>> 0 > 0 >>> 0)) {
-    $lib_builtins_abort(0 | 0, 144 | 0, 136 | 0, 15 | 0);
+    $lib_builtins_abort(0 | 0, 144 | 0, 136 | 0, 16 | 0);
     abort();
    }
    HEAP32[($0 + 4 | 0) >> 2] = $1 & (268435455 ^ -1 | 0) | 0 | ($2 - 1 | 0) | 0;
@@ -1083,7 +1100,7 @@ function asmFunc(global, env, buffer) {
    return
   }
   if (!(($1 | 0) == (1 | 0))) {
-   $lib_builtins_abort(0 | 0, 144 | 0, 69 | 0, 15 | 0);
+   $lib_builtins_abort(0 | 0, 144 | 0, 69 | 0, 16 | 0);
    abort();
   }
   $lib_rt_pure_decrement($0 - 16 | 0 | 0);
@@ -1940,15 +1957,13 @@ for (var base64ReverseLookup = new Uint8Array(123/*'z'+1*/), i = 25; i >= 0; --i
   base64ReverseLookup[47] = 63; // '/'
   /** @noinline Inlining this function would mean expanding the base64 string 4x times in the source code, which Closure seems to be happy to do. */
   function base64DecodeToExistingUint8Array(uint8Array, offset, b64) {
-    var b1, b2, i = 0, j = offset, bLength = b64.length, end = offset + (bLength*3>>2);
-    if (b64[bLength-2] == '=') --end;
-    if (b64[bLength-1] == '=') --end;
-    for (; i < bLength; i += 4, j += 3) {
+    var b1, b2, i = 0, j = offset, bLength = b64.length, end = offset + (bLength*3>>2) - (b64[bLength-2] == '=') - (b64[bLength-1] == '=');
+    for (; i < bLength; i += 4) {
       b1 = base64ReverseLookup[b64.charCodeAt(i+1)];
       b2 = base64ReverseLookup[b64.charCodeAt(i+2)];
-      uint8Array[j] = base64ReverseLookup[b64.charCodeAt(i)] << 2 | b1 >> 4;
-      if (j+1 < end) uint8Array[j+1] = b1 << 4 | b2 >> 2;
-      if (j+2 < end) uint8Array[j+2] = b2 << 6 | base64ReverseLookup[b64.charCodeAt(i+3)];
+      uint8Array[j++] = base64ReverseLookup[b64.charCodeAt(i)] << 2 | b1 >> 4;
+      if (j < end) uint8Array[j++] = b1 << 4 | b2 >> 2;
+      if (j < end) uint8Array[j++] = b2 << 6 | base64ReverseLookup[b64.charCodeAt(i+3)];
     }
   }
 var bufferView = new Uint8Array(memasmFunc);
@@ -1956,9 +1971,8 @@ base64DecodeToExistingUint8Array(bufferView, 16, "HgAAAAEAAAABAAAAHgAAAH4AbABpAG
 base64DecodeToExistingUint8Array(bufferView, 64, "KAAAAAEAAAABAAAAKAAAAGEAbABsAG8AYwBhAHQAaQBvAG4AIAB0AG8AbwAgAGwAYQByAGcAZQA=");
 base64DecodeToExistingUint8Array(bufferView, 128, "HgAAAAEAAAABAAAAHgAAAH4AbABpAGIALwByAHQALwBwAHUAcgBlAC4AdABzAA==");
 base64DecodeToExistingUint8Array(bufferView, 176, "GAAAAAEAAAABAAAAGAAAAH4AbABpAGIALwBtAGEAdABoAC4AdABzAA==");
-base64DecodeToExistingUint8Array(bufferView, 224, "KAAAAAEAAAABAAAAKAAAAFAAUgBOAEcAIABtAHUAcwB0ACAAYgBlACAAcwBlAGUAZABlAGQALgA=");
-base64DecodeToExistingUint8Array(bufferView, 288, "AwAAABAAAAAAAAAAEAAAAAAAAAAQAAAAAAAAAA==");
-var retasmFunc = asmFunc({Math,Int8Array,Uint8Array,Int16Array,Uint16Array,Int32Array,Uint32Array,Float32Array,Float64Array,NaN,Infinity}, {abort:function() { throw new Error('abort'); },abort,now,setTempRet0,getTempRet0},memasmFunc);
+base64DecodeToExistingUint8Array(bufferView, 224, "AwAAACAAAAAAAAAAIAAAAAAAAAAgAAAAAAAAAA==");
+var retasmFunc = asmFunc({Math,Int8Array,Uint8Array,Int16Array,Uint16Array,Int32Array,Uint32Array,Float32Array,Float64Array,NaN,Infinity}, {abort:function() { throw new Error('abort'); },abort,now,seed,setTempRet0,getTempRet0},memasmFunc);
 export var memory = retasmFunc.memory;
 export var __alloc = retasmFunc.__alloc;
 export var __retain = retasmFunc.__retain;
