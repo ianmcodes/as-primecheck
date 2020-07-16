@@ -1,5 +1,6 @@
 {
-  "name": "as_wasm",
+  "private": true,
+  "name": "as_primecheck",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
