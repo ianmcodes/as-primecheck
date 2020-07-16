@@ -409,12 +409,6 @@ function asmFunc(global, env, buffer) {
   }
  }
  
- function assembly_index_add($0, $1) {
-  $0 = $0 | 0;
-  $1 = $1 | 0;
-  return $0 + $1 | 0 | 0;
- }
- 
  function assembly_index_modpow($0, $1, $2, $3, $4, $5) {
   $0 = $0 | 0;
   $1 = $1 | 0;
@@ -821,7 +815,6 @@ function asmFunc(global, env, buffer) {
   "__retain": $lib_rt_pure___retain, 
   "__release": $lib_rt_pure___release, 
   "__collect": $lib_rt_pure___collect, 
-  "add": assembly_index_add, 
   "modpow": legalstub$assembly_index_modpow, 
   "rng_gen_range": legalstub$assembly_index_rng_gen_range, 
   "primeCheck": legalstub$assembly_index_primeCheck
@@ -859,7 +852,6 @@ export var __alloc = retasmFunc.__alloc;
 export var __retain = retasmFunc.__retain;
 export var __release = retasmFunc.__release;
 export var __collect = retasmFunc.__collect;
-export var add = retasmFunc.add;
 export var modpow = retasmFunc.modpow;
 export var rng_gen_range = retasmFunc.rng_gen_range;
 export var primeCheck = retasmFunc.primeCheck;

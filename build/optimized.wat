@@ -1,9 +1,9 @@
 (module
- (type $i32_i32_=>_i32 (func (param i32 i32) (result i32)))
  (type $i32_=>_none (func (param i32)))
  (type $i32_i32_=>_none (func (param i32 i32)))
  (type $i32_i32_i32_=>_none (func (param i32 i32 i32)))
  (type $i32_=>_i32 (func (param i32) (result i32)))
+ (type $i32_i32_=>_i32 (func (param i32 i32) (result i32)))
  (type $none_=>_f64 (func (result f64)))
  (type $none_=>_none (func))
  (type $i32_i32_i32_i32_=>_none (func (param i32 i32 i32 i32)))
@@ -37,7 +37,6 @@
  (export "__release" (func $~lib/rt/pure/__release))
  (export "__collect" (func $~lib/rt/pure/__collect))
  (export "__rtti_base" (global $~lib/rt/__rtti_base))
- (export "add" (func $assembly/index/add))
  (export "modpow" (func $assembly/index/modpow))
  (export "rng_gen_range" (func $assembly/index/rng_gen_range))
  (export "primeCheck" (func $assembly/index/primeCheck))
@@ -1115,11 +1114,6 @@
    i32.sub
    call $~lib/rt/pure/decrement
   end
- )
- (func $assembly/index/add (param $0 i32) (param $1 i32) (result i32)
-  local.get $0
-  local.get $1
-  i32.add
  )
  (func $assembly/index/modpow (param $0 i64) (param $1 i64) (param $2 i64) (result i64)
   (local $3 i64)

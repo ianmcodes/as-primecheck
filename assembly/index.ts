@@ -1,9 +1,5 @@
 // The entry file of your WebAssembly module.
 
-export function add(a: i32, b: i32): i32 {
-  return a + b;
-}
-
 export function modpow(base: u64, exp: u64, mod: u64): u64 {
   if (mod === 1) {
     return 0;
