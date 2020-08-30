@@ -24,11 +24,15 @@ async function init() {
   suite.add('primeCheck', function() {
     numbers.forEach(n => window.module.primeCheck(n,10));
   })
+  .on('cycle', function(evt) {
+    log(evt.target.toString());
+  })
   .on('complete', function() {
     const results = this[0];
     const runs = results.stats.sample.length;
     const mean = results.stats.mean;
-    log(`Mean of ${runs} runs: ${(mean * 1000).toFixed(10)}ms`);
+    log(`Mean of ${runs} runs: ${(mean * 1000).toFixed(10)}ms ±${(results.stats.moe * 1000).toFixed(10)}ms (${results.stats.rme.toFixed(2)}%)`);
+    results.stats.sample.forEach((s, i) => log(`Run ${i}: ${(s * 1000).toFixed(10)}ms`));
   })
   .run({async: true});
 }
