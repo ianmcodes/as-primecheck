@@ -18,6 +18,8 @@
     "browserify": "^16.5.1"
   },
   "dependencies": {
-    "@assemblyscript/loader": "^0.13.4"
+    "@assemblyscript/loader": "^0.13.4",
+    "benchmark": "^2.1.4",
+    "lodash": "^4.17.20"
   }
 }
